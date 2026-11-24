@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     book_table_name: str = "book_embeddings"
     embedding_dim: int = 1536
 
+    enable_mcp: bool = True
+    mcp_host: str = "127.0.0.1"
+    mcp_path: str = "/mcp"
+
 
 def get_settings() -> Settings:
     return Settings()
