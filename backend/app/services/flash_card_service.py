@@ -8,6 +8,9 @@ from llama_index.core import VectorStoreIndex
 from ..clients.deepseek_client import get_flash_card_response
 import json
 from ..models.flash_cards_model import FlashCard
+from ..logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 class FlashCardService:
@@ -24,7 +27,7 @@ class FlashCardService:
         text = None
         if suffix == ".pdf":
             text = pymupdf4llm.to_markdown(str(flash_card_questions))
-            print("THIS IS TEXT FROM PDF", text)
+            logger.debug("Parsed PDF %s (%d chars)", flash_card_questions, len(text))
         elif suffix in [".docx", ".doc"]:
             elements = partition_docx(filename=str(flash_card_questions))
             text = "\n\n".join([str(element) for element in elements])

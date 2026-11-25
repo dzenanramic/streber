@@ -4,6 +4,9 @@ from ..services.flash_card_service import FlashCardService
 from ..services.book_service import BookService
 from ..database import get_db
 from ..repository.flash_cards_repository import FlashCardsRepository
+from ..logging_config import get_logger
+
+logger = get_logger(__name__)
 
 router = APIRouter(prefix="/flash-cards", tags=["flash-cards"])
 
@@ -24,11 +27,11 @@ def list_flash_card_files(
         card_questions = flash_card_service.get_flash_card_answers(parsed_questions)
 
         for question in card_questions:
-            print(question)
+            logger.info("Creating flash card: %s", question.subject)
             flash_card_repository.create_flash_card(question)
 
         questions.append(card_questions)
-        print(card_questions)
+        logger.info("Created %d flash card(s)", len(card_questions))
 
     return {"Card questions status": "Created"}
 

@@ -5,11 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import get_settings
 from .database import init_db
+from .logging_config import setup_logging
 from .mcp.server import server as mcp_server
 from .models import FlashCard
 from app.routers.book_router import router as book_router
 from app.routers.question_router import router as question_router
 from app.routers.flash_cards_router import router as flash_cards_router
+
+setup_logging()
 
 settings = get_settings()
 

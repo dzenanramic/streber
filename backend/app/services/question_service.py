@@ -3,6 +3,9 @@ from ..repository.book_repository import BookRepository
 from llama_index.core import VectorStoreIndex
 from ..clients.deepseek_client import get_response
 from ..models.question_model import RetrievedChunk
+from ..logging_config import get_logger
+
+logger = get_logger(__name__)
 
 
 class QuestionService:
@@ -21,6 +24,10 @@ class QuestionService:
         retriever = index.as_retriever(similarity_top_k=top_k)
 
         nodes = retriever.retrieve(question)
+        logger.info(
+            "retrieve(question=%r, top_k=%d) -> %d chunk(s)",
+            question[:80], top_k, len(nodes),
+        )
         chunks = []
         for node_with_score in nodes:
             node = node_with_score.node

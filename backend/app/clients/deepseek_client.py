@@ -51,8 +51,6 @@ def settings() -> Settings:
     return get_settings()
 
 
-print(settings)
-
 client = OpenAI(
     api_key=settings().deepseek_api_key, base_url="https://api.deepseek.com"
 )
