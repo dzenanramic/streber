@@ -5,7 +5,7 @@ from ..services.book_service import BookService
 from .embed_dependencies import get_embed_model
 
 ROOT_ROUTE = Path(__file__).resolve().parents[2]
-BOOK_ROUTE = ROOT_ROUTE / "data/book"
+BOOK_ROUTE = ROOT_ROUTE / "data/books"
 
 
 def get_book_service(
